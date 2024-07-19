@@ -1,0 +1,82 @@
+window.addEventListener("load", function (load) {
+  const loader = document.getElementById("loader");
+  this.window.removeEventListener("load", load, false);
+  this.setTimeout(function () {
+    loader.style.display = "none";
+  }, 2000);
+});
+const apiKey = "API_KEY";
+const searchButton = document.getElementById("search-button");
+const cityInput = document.getElementById("city-input");
+const forecastDiv = document.getElementById("forecast");
+
+async function fetchWeather(city) {
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  const [weatherResponse, forecastResponse] = await Promise.all([
+    fetch(weatherUrl),
+    fetch(forecastUrl),
+  ]);
+  const weatherData = await weatherResponse.json();
+  const forecastData = await forecastResponse.json();
+  if (weatherData.cod == 404 || forecastData.cod == 404) {
+    document.querySelector(".error").style.display = "block";
+    cityInput.value = "";
+  } else {
+    cityInput.value = "";
+    forecastDiv.innerHTML = "";
+    document.querySelector(".error").style.display = "none";
+    forecastDiv.classList.remove("card");
+    displayCurrentWeather(weatherData);
+    displayForecast(forecastData.list);
+  }
+}
+
+function displayCurrentWeather(data) {
+  const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+  const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+  document.querySelector(".city").innerHTML = data.name;
+  document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+  document.querySelector(".weather").innerHTML = data.weather[0].main;
+  document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+  document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+  document.querySelector(".feels-like").innerHTML =
+    Math.round(data.main.feels_like) + "°C";
+  document.querySelector(".sunrise").innerHTML = sunrise;
+  document.querySelector(".sunset").innerHTML = sunset;
+  document.querySelector(
+    ".weather-img"
+  ).src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+}
+
+function displayForecast(forecast) {
+  console.log(forecast);
+  console.log(forecast.filter((_, index) => index % 8 === 0).slice(0, 5));
+
+  const filteredForecast = forecast
+    .filter((_, index) => index % 8 === 0)
+    .slice(0, 5);
+  forecastDiv.classList.add("card");
+  filteredForecast.forEach((day, index) => {
+    const date = new Date(day.dt_txt);
+    forecastDiv.innerHTML += `
+    <div class="card-body forcast-item forcastItem_${index}">
+              <div class="row">
+                <div class="col">
+                  <p>${date.toDateString()}</p>
+                  <p>${Math.round(day.main.temp_max)}°C</p>
+                </div>
+                <div class="col">
+                  <img src="http://openweathermap.org/img/wn/${
+                    day.weather[0].icon
+                  }.png" alt="Weather icon">
+                 <p>${day.weather[0].description}</p>
+                </div>
+              </div>
+      </div>`;
+  });
+}
+fetchWeather((city = "Delhi"));
+searchButton.addEventListener("click", () => {
+  fetchWeather(cityInput.value);
+});

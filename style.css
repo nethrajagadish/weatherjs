@@ -1,0 +1,67 @@
+body {
+  background: radial-gradient(#45278b, #2e335a);
+}
+.text-left {
+  text-align: left;
+}
+.card {
+  height: 120px;
+  border-radius: 20px;
+  border: solid 1px #6a41cc;
+  background: radial-gradient(#35216a, #322266);
+  margin-top: 2rem;
+}
+.card-body .row {
+  padding: 0 5%;
+  align-items: center;
+}
+.card-body p {
+  font-size: 22px;
+  margin-bottom: 0;
+}
+.card-title {
+  font-size: 28px;
+}
+.main-row {
+  padding: 0 5rem 2rem 5rem;
+}
+.city {
+  font-size: 25px;
+}
+.temp {
+  font-size: 27px;
+}
+.weather {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+.feelsLike {
+  margin-left: 20px;
+}
+.m-l-20p {
+  margin-left: 20%;
+}
+#search-button {
+  width: 60px;
+}
+#forecast {
+  height: fit-content;
+}
+.forcast-item {
+  margin: 0 5rem;
+  border-bottom: 1px solid #6a41cc;
+}
+.forcastItem_4 {
+  border: none;
+}
+#loader {
+  background: #45278b url(images/loader.gif) no-repeat center center;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
+.error {
+  color: red;
+  display: none;
+}
