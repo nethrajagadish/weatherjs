@@ -65,3 +65,20 @@ body {
   color: red;
   display: none;
 }
+#api-error {
+  background: #45278b;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  display: none;
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 18px;
+}

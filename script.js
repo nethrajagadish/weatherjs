@@ -9,7 +9,7 @@ const apiKey = "API_KEY";
 const searchButton = document.getElementById("search-button");
 const cityInput = document.getElementById("city-input");
 const forecastDiv = document.getElementById("forecast");
-
+const errorDiv = document.getElementById("api-error");
 async function fetchWeather(city) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
@@ -19,10 +19,21 @@ async function fetchWeather(city) {
   ]);
   const weatherData = await weatherResponse.json();
   const forecastData = await forecastResponse.json();
-  if (weatherData.cod == 404 || forecastData.cod == 404) {
+  if (weatherData.cod == 401 || forecastData.cod == 401) {
+    errorDiv.innerHTML = `<div class="center">Sorry, we're currently unable to retrieve the weather information. Please try again later.
+</div>`;
+    errorDiv.style.display = "block";
+  } else if (
+    weatherData.cod == 404 ||
+    forecastData.cod == 404 ||
+    weatherData.cod == 400 ||
+    forecastData.cod == 400
+  ) {
+    console.log("error");
     document.querySelector(".error").style.display = "block";
     cityInput.value = "";
   } else {
+    errorDiv.innerHTML = "";
     cityInput.value = "";
     forecastDiv.innerHTML = "";
     document.querySelector(".error").style.display = "none";
@@ -80,3 +91,13 @@ fetchWeather((city = "Delhi"));
 searchButton.addEventListener("click", () => {
   fetchWeather(cityInput.value);
 });
+document
+  .getElementById("city-input")
+  .addEventListener("keydown", function (event) {
+    if (event.target.value != "") {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        searchButton.click();
+      }
+    }
+  });
