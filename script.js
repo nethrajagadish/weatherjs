@@ -29,7 +29,6 @@ async function fetchWeather(city) {
     weatherData.cod == 400 ||
     forecastData.cod == 400
   ) {
-    console.log("error");
     document.querySelector(".error").style.display = "block";
     cityInput.value = "";
   } else {
@@ -61,9 +60,6 @@ function displayCurrentWeather(data) {
 }
 
 function displayForecast(forecast) {
-  console.log(forecast);
-  console.log(forecast.filter((_, index) => index % 8 === 0).slice(0, 5));
-
   const filteredForecast = forecast
     .filter((_, index) => index % 8 === 0)
     .slice(0, 5);
