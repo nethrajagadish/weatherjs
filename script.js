@@ -5,7 +5,7 @@ window.addEventListener("load", function (load) {
     loader.style.display = "none";
   }, 2000);
 });
-const apiKey = "c096fe8793652ecf101cc99dece95dca";
+const apiKey = "API_KEY";
 const searchButton = document.getElementById("search-button");
 const cityInput = document.getElementById("city-input");
 const forecastDiv = document.getElementById("forecast");
