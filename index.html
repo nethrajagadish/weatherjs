@@ -17,6 +17,30 @@
     <div id="api-error"></div>
     <div class="container-fluid bg-main text-white">
       <div class="row main-row">
+        <div class="mt-1 fs-5">
+          GetYourWeather
+          <button class="current-location-btn" id="location-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 26 26"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+              />
+            </svg>
+          </button>
+        </div>
         <div class="col text-center current-weather">
           <img
             alt="weather"
@@ -34,7 +58,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <img src="images/wind.png" />
+                      <img src="images/wind.png" alt="wind" />
                     </div>
                     <div class="col text-left">
                       <h5 class="card-title">Wind</h5>
@@ -49,7 +73,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <img src="images/humidity.png" />
+                      <img src="images/humidity.png" alt="humidity" />
                     </div>
                     <div class="col text-left">
                       <h5 class="card-title">Humidity</h5>
@@ -63,8 +87,8 @@
           <div class="card">
             <div class="card-body">
               <div class="row">
-                <div class="col-2 m-l-20p">
-                  <img src="images/feel.png" width="79" />
+                <div class="col-2 m-l-20p ms-2">
+                  <img src="images/feel.png" width="79" alt="feel" />
                 </div>
                 <div class="col text-left">
                   <h5 class="card-title feelsike">
@@ -80,7 +104,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <img src="images/sunrise.png" width="79" />
+                      <img src="images/sunrise.png" width="79" alt="sunrise" />
                     </div>
                     <div class="col text-left">
                       <h5 class="card-title">Sunrise</h5>
@@ -95,7 +119,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <img src="images/sunset.png" width="79" />
+                      <img src="images/sunset.png" width="79" alt="sunset" />
                     </div>
                     <div class="col text-left">
                       <h5 class="card-title">Sunset</h5>
@@ -107,7 +131,7 @@
             </div>
           </div>
         </div>
-        <div class="col mt-5 ms-5">
+        <div class="col mt-5 ms-0 ms-md-5">
           <div class="input-group mb-3">
             <input
               id="city-input"

@@ -5,7 +5,7 @@ window.addEventListener("load", function (load) {
     loader.style.display = "none";
   }, 2000);
 });
-const apiKey = "API_KEY";
+const apiKey = "c096fe8793652ecf101cc99dece95dca";
 const searchButton = document.getElementById("search-button");
 const cityInput = document.getElementById("city-input");
 const forecastDiv = document.getElementById("forecast");
@@ -29,6 +29,7 @@ async function fetchWeather(city) {
     weatherData.cod == 400 ||
     forecastData.cod == 400
   ) {
+    console.log("error");
     document.querySelector(".error").style.display = "block";
     cityInput.value = "";
   } else {
@@ -60,6 +61,9 @@ function displayCurrentWeather(data) {
 }
 
 function displayForecast(forecast) {
+  console.log(forecast);
+  console.log(forecast.filter((_, index) => index % 8 === 0).slice(0, 5));
+
   const filteredForecast = forecast
     .filter((_, index) => index % 8 === 0)
     .slice(0, 5);
@@ -97,3 +101,48 @@ document
       }
     }
   });
+document.getElementById("location-btn").addEventListener("click", function () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+});
+
+function showPosition(position) {
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
+  const reverseGeocodingUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+  fetch(reverseGeocodingUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.cod === 200) {
+        const city = data.name;
+        fetchWeather(city);
+      } else {
+        alert(`Error: ${data.message}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching the location data:", error);
+      alert("Unable to retrieve location data at the moment.");
+    });
+}
+
+function showError(error) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      alert("User denied the request for Geolocation.");
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert("Location information is unavailable.");
+      break;
+    case error.TIMEOUT:
+      alert("The request to get user location timed out.");
+      break;
+    case error.UNKNOWN_ERROR:
+      alert("An unknown error occurred.");
+      break;
+  }
+}
