@@ -5,7 +5,8 @@ window.addEventListener("load", function (load) {
     loader.style.display = "none";
   }, 2000);
 });
-const apiKey = "API_KEY";
+const apiKey = API_KEY;
+console.log(apiKey)
 const searchButton = document.getElementById("search-button");
 const cityInput = document.getElementById("city-input");
 const forecastDiv = document.getElementById("forecast");
